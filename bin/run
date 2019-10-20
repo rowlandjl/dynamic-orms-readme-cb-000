@@ -10,4 +10,13 @@ puts "song name: " + song.name
 puts "song album: " + song.album
 song.save
 
-DB[:conn].execute("SELECT * FROM songs")
+puts DB[:conn].execute("SELECT * FROM songs")
+puts song.col_names_for_insert
+puts song.values_for_insert
+puts Song.column_names 
+
+values = []
+Song.column_names.each do |col_name|
+  values << " '#{send(col_name)} '" unless send(col_name).nil?
+end
+puts values.join(", ")
